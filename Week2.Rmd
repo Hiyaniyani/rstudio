@@ -1,0 +1,139 @@
+---
+title: "Week2"
+author: "산업공학과 석사과정 1기 2024140347 안하윤"
+date: "2024-03-13"
+output: html_document
+---
+
+```{r}
+#rm(list=ls())
+```
+
+## Example 1
+기본연산 및 수학함수를 활용하여 아래를 계산하시오.
+
+```{r}
+#(1)
+sqrt(2)
+
+#(2)
+exp(5)
+
+#(3)
+log10(20)
+
+#(4)
+log(20)
+
+#(5)
+gamma(5)
+
+#(6)
+abs(-4.5)
+
+#(7)
+round(pi,2)
+```
+
+## Example 2
+다음과 같은 분포에 대한 확률밀도함수를 산출하시오.
+
+```{r}
+#(1) normal dist: x=5, mu=5, sd=1
+dnorm(5, mean=5, sd=1)
+
+#(2) exponential dist: x=1, rate=5
+dexp(1, rate=5)
+
+#(3) weibull dist: x=50, shape=80, scale=1.5
+dweibull(50, shape=80, scale=1.5)
+```
+
+## Example 3
+A=5, b=6일 때 변수를 할당하여 다음 식을 계산하시오. 계산이 끝난 후 A와 B 변수를 한번에 지우도록 스크립트를 작성하시오.
+
+```{r}
+A <- 5
+b <- 6
+
+#(1)
+2*A+b^2
+
+#(2)
+A^5*3^b
+
+rm(list=ls())
+```
+
+## Example 4
+다음과 같이 정규분포에 대한 확률밀도함수를 기반으로 입, 출력 함수를 정의하시오.
+
+```{r}
+fx <- function(x, mu, sig){
+  x=(1/(sig*sqrt(2*pi)))*exp(-(x-mu)^2/(2*sig^2))
+  10*x
+}
+
+fx(0,0,1)
+```
+
+## Example 5
+합 : sum, 곱 : prod 함수를 사용할 때, 아래의 연산을 수행하시오
+
+```{r}
+#(1)
+sum(seq(100)^2)
+
+#(2)
+prod(1:10)
+
+#(3)
+sum(cos(seq(20)/20*pi))
+```
+
+## Example 6
+2의 배수로 구성된 3*3 행렬을 생성하고, 행 이름을 알파벳, 열 이름을 한글로 정의하시오. 또한, 2행 3열에 해당하는 값을 추출하시오.
+
+```{r}
+mat <- matrix(2*1:9, nrow=3)
+row.names(mat) <- c("a","b","c")
+colnames(mat) <- c("ㄱ","ㄴ","ㄷ")
+mat
+mat[2,3]
+```
+
+## Example 7
+R에서 기본으로 제공되는 iris 데이터에서, 종류(Species)가 ‘virginica’인 데이터만 추출하시오.
+
+```{r}
+data(iris)
+iris[iris$Species=="virginica",]
+```
+
+## Example 8
+iris 데이터의 3번째 열, Species 변수를 각각 벡터로 저장하고, 두 벡터를 원소로 가지는 리스트를 생성하시오.
+
+```{r}
+x <- iris[,3]
+species <- iris["Species"]
+lis <- list(x, species)
+lis
+```
+
+## Example 9
+데이터를 입력값으로 받아서 데이터의 각 행마다 아래의 반복문을 수행하는 함수 코드를 작성하시오.
+
+```{r}
+i <- NULL
+
+for (i in 1:length(iris$Species)) {
+  if (iris[i,]$Species=="setosa"){
+    print(1)
+  } else if (iris[i,]$Species=="versicolor") {
+    print(2)
+  } else if (iris[i,]$Species=="virginica") {
+    print(3)
+  }
+}
+```
+
