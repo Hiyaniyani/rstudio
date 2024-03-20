@@ -372,9 +372,9 @@ for (i in 1:100){
 meanx &lt;- Reduce(&#39;+&#39;,x)/length(x)
 
 mean(meanx)</code></pre>
-<pre><code>## [1] 20.00376</code></pre>
+<pre><code>## [1] 20.02078</code></pre>
 <pre class="r"><code>sd(meanx) #sigsq/n</code></pre>
-<pre><code>## [1] 1.001443</code></pre>
+<pre><code>## [1] 1.003149</code></pre>
 </div>
 <div id="평균-분산" class="section level3">
 <h3>2. 평균, 분산</h3>
@@ -393,13 +393,13 @@ mean(meanx)</code></pre>
 }
 
 meanvar(&#39;expo&#39;, n=100, 0.1)</code></pre>
-<pre><code>## [1] &quot;시뮬레이션 결과: 9.40724170717081 80.5678392010689&quot;
+<pre><code>## [1] &quot;시뮬레이션 결과: 10.8498337387511 107.712959254953&quot;
 ## [1] &quot;산출공식: 10 100&quot;</code></pre>
 <pre class="r"><code>meanvar(&#39;expo&#39;, n=10000, 0.1)</code></pre>
-<pre><code>## [1] &quot;시뮬레이션 결과: 9.9397931314312 99.8704663125345&quot;
+<pre><code>## [1] &quot;시뮬레이션 결과: 9.96526500600982 99.8338611918362&quot;
 ## [1] &quot;산출공식: 10 100&quot;</code></pre>
 <pre class="r"><code>meanvar(&#39;binom&#39;, n=10000, c(100,0.2))</code></pre>
-<pre><code>## [1] &quot;시뮬레이션 결과: 19.9852 15.9467756375638&quot;
+<pre><code>## [1] &quot;시뮬레이션 결과: 20.0005 16.0749072407241&quot;
 ## [1] &quot;산출공식: 20 16&quot;</code></pre>
 </div>
 </div>
