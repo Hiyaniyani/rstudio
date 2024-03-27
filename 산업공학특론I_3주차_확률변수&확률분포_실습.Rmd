@@ -111,6 +111,12 @@ dat$Target <- as.factor(dat$Target)
 dat$Type <- as.factor(dat$Type)
 dat$FailureType <- as.factor(dat$FailureType)
 
+dat$AirtemperatureK <- as.numeric(dat$AirtemperatureK)
+dat$ProcesstemperatureK <- as.numeric(dat$ProcesstemperatureK)
+dat$Rotationalspeedrpm <- as.numeric(dat$Rotationalspeedrpm)
+dat$TorqueNm <- as.numeric(dat$TorqueNm)
+dat$Toolwearmin <- as.numeric(dat$Toolwearmin)
+
 summary(dat)
 
 # 데이터 탐색을 위한 시각화 수행
