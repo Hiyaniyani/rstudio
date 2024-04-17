@@ -1,6 +1,6 @@
 ---
 title: "산업공학특론I_7주차_분산분석_실습"
-author: "Munwon Lim"
+author: "Hayun An"
 date: "4/17/2024"
 output: html_document
 ---
@@ -42,6 +42,60 @@ knitr::opts_chunk$set(fig.width=9, fig.height=12)
 ### 1. 데이터 탐색 (EDA) 및 전처리
 ```{r eda}
 
+# 데이터 로드
+filename <- list.files(pattern="B[0-9]")
+
+dat <- list()
+for (i in 1:length(filename)){
+  dat[[i]] <- read.csv(filename[i])
+}
+length(dat)
+
+names(dat) <- gsub(".csv", "", filename)
+names(dat)
+
+# 데이터 요약
+lapply(dat, summary)
+
+# 데이터 시각화
+par(mfrow=c(4,2))
+for (i in c(2,4:9)){
+  plot(dat[[1]][,i])
+}
+
+# 데이터 병합
+temp <- merge(dat[[1]], dat[[2]], by=c("cycle", "time"))
+head(temp)
+
+dat_merge <- Reduce(function(x,y){merge(x,y, by=c("cycle","time"))}, dat)
+
+# 데이터 전처리 1 - 변수 추출 (capacity)
+dat_merge <- dat_merge[,c(1,2,grep("capacity", colnames(dat_merge)))] # grep:벡터에서 찾고자 하는 문자열 찾아주는 함수
+head(dat_merge)
+
+colnames(dat_merge)[3:5] <- names(dat)
+head(dat_merge)
+
+# 데이터 전처리 2 - 사이클 단위로 계측치 축소
+# 종속변수 ~ 독립변수 / 계측치 ~ 기준
+dat_merge <- aggregate(.~cycle, data=dat_merge[,-2], mean)
+head(dat_merge)
+
+# 전처리 결과 시각화
+par(mfrow=c(1,1))
+plot(NULL, xlim=range(dat_merge$cycle), ylim=range(dat_merge[,2:4]),
+     xlab="cycle", ylab="capacity")
+
+for (i in 2:4){
+  points(dat_merge$cycle, dat_merge[,i], col=i, pch=16)
+}
+legend("topright", legend=names(dat), col=2:4, pch=16)
+
+# ANOVA 분석 가능한 형태로 전처리
+library(reshape)
+
+dat_merge <- melt(data=dat_merge, id.vars="cycle")
+head(dat_merge)
 
 ```
 
@@ -50,6 +104,14 @@ knitr::opts_chunk$set(fig.width=9, fig.height=12)
 ### 2. 분산분석
 ```{r anova}
 
+fit <- aov(value~variable, data=dat_merge)
+summary(fit)
+
+# 신뢰구간 산출
+unique(predict(fit, dat_merge, interval="confidence"))
+
+par(mfrow=c(2,2))
+plot(fit)
 
 ```
 
@@ -61,5 +123,18 @@ knitr::opts_chunk$set(fig.width=9, fig.height=12)
 
 ```{r posthoc}
 
+# LSD 검정
+library(agricolae)
+
+lsd_test <- LSD.test(fit, "variable")
+lsd_test
+
+plot(lsd_test)
+
+# Tukey HSD 검정
+tukey_test <- TukeyHSD(fit)
+tukey_test
+
+plot(tukey_test)
 
 ```
