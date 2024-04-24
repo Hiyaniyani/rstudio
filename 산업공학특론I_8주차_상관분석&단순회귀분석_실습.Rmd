@@ -1,6 +1,6 @@
 ---
 title: '산업공학특론I_8주차_상관분석 & 단순회귀분석_실습'
-author: 'Munwon Lim'
+author: 'Hayun An'
 date: '4/24/2024'
 output: html_document
 ---
@@ -47,12 +47,19 @@ knitr::opts_chunk$set(fig.width=9, fig.height=9)
 ```{r eda}
 
 # 데이터 로드 및 요약
+dat <- read.csv("B0005.csv")
+summary(dat)
 
 # 데이터 전처리 1 - 불필요한 데이터 제거
+dat <- dat[,-c(2,3,10)]
+head(dat)
 
 # 데이터 전처리 2 - cycle 단위 축소
+dat <- aggregate(.~cycle, data=dat, mean)
+head(dat)
 
 # 데이터 시각화
+plot(dat)
 
 ```
 
@@ -60,12 +67,29 @@ knitr::opts_chunk$set(fig.width=9, fig.height=9)
 
 ### 2. 상관분석
 ```{r correlation}
+library(corrplot)
 
-#상관계수 테이블 생성
+# 피어슨 상관계수: 선형적인 관계를 정량적으로 측정
+# 켄달 상관계수: X, Y 순열화
+# 스피어만 상관계수: X, Y 순열화 + 비선형적인 상관관계
+
+# 상관계수 테이블 생성
+corr_p <- cor(dat, method = "pearson")
+corr_k <- cor(dat, method = "kendall")
+corr_s <- cor(dat, method = "spearman")
 
 # 상관계수 테이블 시각화
+col <- colorRampPalette(c("red", "blue"))
+corrplot(corr_p, col=col(200), method="square", addCoef.col="black", type="upper")
+corrplot(corr_k, col=col(200), method="square", addCoef.col="black", type="upper")
+corrplot(corr_s, col=col(200), method="square", addCoef.col="black", type="upper")
 
 # 상관계수 유의성 검정
+x <- dat$cycle
+y <- dat$capacity
+cor(x,y)
+
+cor.test(x, y, alternative="two.sided", method="pearson", conf.level=0.9)
 
 ```
 
@@ -76,14 +100,30 @@ knitr::opts_chunk$set(fig.width=9, fig.height=9)
 ```{r regression}
 
 # 회귀모델 수립
+reg <- lm(y~x)
 
 # 모델 수립 결과
+summary(reg)
 
 # 적합결과 시각화
+par(mfrow=c(2,2))
+plot(reg)
+
+plot(x, y, pch=16)
+abline(a=reg$coef[1], b=reg$coef[2], col="red") # y = a + bx
 
 # 신뢰구간, 예측구간 산출
+new_dat <- 1:max(dat$cycle)
+conf <- predict(reg, data.frame(new_dat), interval="confidence")
+pred <- predict(reg, data.frame(new_dat), interval="prediction")
+
+for (i in 2:3){
+  lines(new_dat, conf[,i], lty=2, col=2)
+  lines(new_dat, pred[,i], lty=3, col=3)
+}
 
 # 분산분석
+anova(reg)
 
 # 회귀모형 가정 검토
 
