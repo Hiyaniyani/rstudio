@@ -42,3 +42,27 @@ x_pca <- x_sc %*% eigenvector
 x_pca
 
 ## 예제3
+
+y_sc <- scale(y)
+y_i <- y_sc; x_i <- x_sc
+tb <- tp <- 0
+pls <- matrix(ncol=ncol(x_sc), nrow=nrow(x_sc))
+for (i in 1:ncol(x_sc)){
+  y_i <- y_i-tb ; x_i <- x_i-tp
+  
+  # 공분산을 최대화하는 선형조합 도출
+  a <- t(x_i) %*% y_i
+  a <- a/sqrt(sum(a^2))
+  
+  # 선형조합 기반 잠재변수 도출
+  pls[,i] <- x_i %*% a
+  
+  # 선형조합에 대한 회귀계수 산출
+  p <- pls[,i] %*% x_i / c(pls[,i] %*% pls[,i])
+  b <- pls[,i] %*% y_i / c(pls[,i] %*% pls[,i])
+  
+  tb <- pls[,i] %*% b
+  tp <- pls[,i] %*% p
+}
+
+pls

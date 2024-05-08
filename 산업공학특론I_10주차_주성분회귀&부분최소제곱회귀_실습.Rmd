@@ -1,6 +1,6 @@
 ---
-title: '»ê¾÷°øÇĞÆ¯·ĞI_10ÁÖÂ÷_ÁÖ¼ººĞÈ¸±Í&ºÎºĞÃÖ¼ÒÁ¦°öÈ¸±Í_½Ç½À'
-author: 'Munwon Lim'
+title: 'ì‚°ì—…ê³µí•™íŠ¹ë¡ I_10ì£¼ì°¨_ì£¼ì„±ë¶„íšŒê·€&ë¶€ë¶„ìµœì†Œì œê³±íšŒê·€_ì‹¤ìŠµ'
+author: 'Hayun An'
 date: '5/8/2024'
 output: html_document
 ---
@@ -10,88 +10,135 @@ knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(fig.width=9, fig.height=9)
 ```
 
-<br>
-<br>
-<br>
+<br> <br> <br>
 
+## [ë°ì´í„° ë¶„ì„]
 
-## [µ¥ÀÌÅÍ ºĞ¼®]
+(<https://www.kaggle.com/datasets/sohommajumder21/appliances-energy-prediction-data-set>)
 
-(https://www.kaggle.com/datasets/sohommajumder21/appliances-energy-prediction-data-set)
+ì €ì—ë„ˆì§€ ê±´ë¬¼ì˜ ê°€ì „ì œí’ˆ ì—ë„ˆì§€ ì‚¬ìš©ëŸ‰ì— ê´€í•œ íšŒê·€ ëª¨ë¸ì„ ë§Œë“¤ê¸° ìœ„í•œ ì‹¤í—˜ ë°ì´í„°
 
-Àú¿¡³ÊÁö °Ç¹°ÀÇ °¡ÀüÁ¦Ç° ¿¡³ÊÁö »ç¿ë·®¿¡ °üÇÑ È¸±Í ¸ğµ¨À» ¸¸µé±â À§ÇÑ ½ÇÇè µ¥ÀÌÅÍ
+-   date: ë‚ ì§œ (ì‹œê°„ ì—°-ì›”-ì¼ ì‹œ:ë¶„:ì´ˆ)
+-   Appliances: ì´ ì—ë„ˆì§€ ì‚¬ìš©ëŸ‰ (Wh)
+-   lights: ì§‘ì•ˆì˜ ì¡°ëª… ì¥ì¹˜ì˜ ì—ë„ˆì§€ ì‚¬ìš©ëŸ‰ (Wh)
+-   T1: ì£¼ë°© ì˜¨ë„ (ì„­ì”¨)
+-   RH_1: ì£¼ë°© ìŠµë„ (%)
+-   T2: ê±°ì‹¤ ì˜¨ë„ (ì„­ì”¨)
+-   RH_2: ê±°ì‹¤ ìŠµë„ (%)
+-   T3: ì„¸íƒì‹¤ ì˜¨ë„ (ì„­ì”¨)
+-   RH_3: ì„¸íƒì‹¤ ìŠµë„ (%)
+-   T4: ì‚¬ë¬´ì‹¤ ì˜¨ë„ (ì„­ì”¨)
+-   RH_4: ì‚¬ë¬´ì‹¤ ìŠµë„ (%)
+-   T5, í™”ì¥ì‹¤ ì˜¨ë„ (ì„­ì”¨)
+-   RH_5, í™”ì¥ì‹¤ ìŠµë„ (%)
+-   T6: ê±´ë¬¼ ì™¸ë¶€ ì˜¨ë„ - ë¶ìª½ (ì„­ì”¨)
+-   RH_6, ê±´ë¬¼ ì™¸ë¶€ ìŠµë„ - ë¶ìª½ (%)
+-   T7: ë‹¤ë¦¬ë¯¸ì‹¤ ì˜¨ë„ (ì„­ì”¨)
+-   RH_7, ë‹¤ë¦¬ë¯¸ì‹¤ ìŠµë„ (%)
+-   T8: ì‹­ëŒ€ë°© ì˜¨ë„ (ì„­ì”¨)
+-   RH_8: ì‹­ëŒ€ë°© ìŠµë„ (%)
+-   T9: ë¶€ëª¨ë°© ì˜¨ë„ (ì„­ì”¨)
+-   RH_9: ë¶€ëª¨ë°© ìŠµë„ (%)
+-   T_out: ì™¸ë¶€ ì˜¨ë„ (ì„­ì”¨)
+-   Press_mm_hg: ê¸°ì•• (mm Hg)
+-   RH_out: ì™¸ë¶€ ìŠµë„ (%)
+-   Windspeed: í’ì† (m/s)
+-   Visibility:ê°€ì‹œë„ (km)
+-   Tdewpoint: ì´ìŠ¬ì  (Â°C)
 
-* date: ³¯Â¥ (½Ã°£ ¿¬-¿ù-ÀÏ ½Ã:ºĞ:ÃÊ)
-* Appliances: ÃÑ ¿¡³ÊÁö »ç¿ë·® (Wh)
-* lights: Áı¾ÈÀÇ Á¶¸í ÀåÄ¡ÀÇ ¿¡³ÊÁö »ç¿ë·® (Wh)
-* T1: ÁÖ¹æ ¿Âµµ (¼·¾¾)
-* RH_1: ÁÖ¹æ ½Àµµ (%)
-* T2: °Å½Ç ¿Âµµ (¼·¾¾)
-* RH_2: °Å½Ç ½Àµµ (%)
-* T3: ¼¼Å¹½Ç ¿Âµµ (¼·¾¾)
-* RH_3: ¼¼Å¹½Ç ½Àµµ (%)
-* T4: »ç¹«½Ç ¿Âµµ (¼·¾¾)
-* RH_4: »ç¹«½Ç ½Àµµ (%)
-* T5, È­Àå½Ç ¿Âµµ (¼·¾¾)
-* RH_5, È­Àå½Ç ½Àµµ (%)
-* T6: °Ç¹° ¿ÜºÎ ¿Âµµ - ºÏÂÊ (¼·¾¾)
-* RH_6, °Ç¹° ¿ÜºÎ ½Àµµ - ºÏÂÊ (%)
-* T7: ´Ù¸®¹Ì½Ç ¿Âµµ (¼·¾¾)
-* RH_7, ´Ù¸®¹Ì½Ç ½Àµµ (%)
-* T8: ½Ê´ë¹æ ¿Âµµ (¼·¾¾)
-* RH_8: ½Ê´ë¹æ ½Àµµ (%)
-* T9: ºÎ¸ğ¹æ ¿Âµµ (¼·¾¾)
-* RH_9: ºÎ¸ğ¹æ ½Àµµ (%)
-* T_out: ¿ÜºÎ ¿Âµµ (¼·¾¾)
-* Press_mm_hg: ±â¾Ğ (mm Hg)
-* RH_out: ¿ÜºÎ ½Àµµ (%)
-* Windspeed: Ç³¼Ó (m/s)
-* Visibility:°¡½Ãµµ (km)
-* Tdewpoint: ÀÌ½½Á¡ (¡ÆC)
+<br> <br> <br>
 
-<br>
-<br>
-<br>
-
-### 1. µ¥ÀÌÅÍ Å½»ö (EDA) ¹× ÀüÃ³¸®
+### 1. ë°ì´í„° íƒìƒ‰ (EDA) ë° ì „ì²˜ë¦¬
 
 ```{r eda}
 
+dat <- read.csv("ì‚°ì—…ê³µí•™íŠ¹ë¡ I_10ì£¼ì°¨_ì‹¤ìŠµ ë°ì´í„°.csv")
+head(dat)
 
+# ë°ì´í„° ì „ì²˜ë¦¬
+dat <- dat[,-1] # ë¶ˆí•„ìš”í•œ ë³€ìˆ˜ ì œê±°
+dat <- scale(dat)
+summary(dat)
+
+# train, testì…‹ ë¶„í• 
+set.seed(0)
+trainidx <- sample(1:nrow(dat), 0.7*nrow(dat))
+train <- dat[trainidx,]
+test <- dat[-trainidx,]
 
 ```
 
 <br>
 
-### 2. »ó°üºĞ¼®
+### 2. ìƒê´€ë¶„ì„
 
 ```{r cor}
+library(corrplot)
 
-
+corr <- cor(train, method="pearson")
+col <- colorRampPalette(c("red","blue"))
+corrplot(corr, method="color", col=col(200), addCoef.col = "black",
+         type="upper", tl.cex = 0.75, number.cex = 0.75)
 
 ```
 
 <br>
 
-### 3. ÀÏ¹İÈ¸±Í¸ğÇü
+### 3. ì¼ë°˜íšŒê·€ëª¨í˜•
 
 ```{r reg}
+library(caret)
+library(Metrics)
 
+# ëª¨ë¸ ìˆ˜ë¦½
+reg <- train(Appliances~., data=train, method="lm", trControl=trainControl(method="cv"))
 
+# ê²°ê³¼ ë„ì¶œ
+summary(reg)
+
+# ì˜ˆì¸¡ë ¥ í‰ê°€
+err <- function(actual, pred){
+  result <- c(mae(actual, pred), mse(actual, pred), rmse(actual, pred))
+  names(result) <- c("MAE", "MSE", "RMSE")
+  print(result)
+}
+
+test <- as.data.frame(test)
+pred_reg <- predict(reg, test)
+err(test$Appliances, pred_reg)
 
 ```
-
 
 <br>
 
 ### 4. PCR
 
 ```{r pcr}
+library(pls)
 
+# ëª¨ë¸ ìˆ˜ë¦½
+train <- as.data.frame(train)
+pcr_model <- pcr(Appliances~., data=train, validation="CV")
+summary(pcr_model) # 6ê°œ ì£¼ì„±ë¶„ì´ ìµœì 
 
+biplot(pcr_model)
+
+plot(RMSEP(pcr_model), legendpos="topright")
+plot(pcr_model, ncomp=6, line=T)
+plot(pcr_model, "loadings", comps=1:6, legendpos="topright")
+
+pc <- pcr_model$scores[,1:6] # ìµœì  ì£¼ì„±ë¶„ ì¶”ì¶œ
+
+train_pc <- cbind(train[,1], pc)
+colnames(train_pc)[1] <- "Appliances"
+reg_pc <- train(Appliances~., data=train_pc, method="lm", trControl=trainControl(method="cv"))
+summary(reg_pc)
+
+# ì˜ˆì¸¡ë ¥ í‰ê°€
+pred_pcr <- predict(pcr_model, test, ncomp=6)
+err(test$Appliances, pred_pcr)
 
 ```
-
 
 <br>
 
@@ -99,6 +146,26 @@ knitr::opts_chunk$set(fig.width=9, fig.height=9)
 
 ```{r plsr}
 
+# ëª¨ë¸ ìˆ˜ë¦½
+plsr_model <- plsr(Appliances~., data=train, validation="CV")
 
+summary(plsr_model) # 7ê°œ ì ì¬ë³€ìˆ˜ê°€ ìµœì 
+
+biplot(plsr_model)
+
+plot(RMSEP(plsr_model), legendpos="topright")
+plot(plsr_model, ncomp=7, line=T)
+plot(plsr_model, "loadings", comps=1:7, legendpos="topright")
+
+lv <- plsr_model$scores[,1:7]
+
+train_lv <- cbind(train[,1], lv)
+colnames(train_lv)[1] <- "Appliances"
+reg_lv <- train(Appliances~., data=train_lv, method="lm", trControl=trainControl(method="cv"))
+summary(reg_lv)
+
+# ì˜ˆì¸¡ë ¥ í‰ê°€
+pred_plsr <- predict(plsr_model, test, ncomp=7)
+err(test$Appliances, pred_plsr)
 
 ```
