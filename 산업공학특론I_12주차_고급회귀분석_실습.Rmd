@@ -127,6 +127,7 @@ svm_grid <- expand.grid(.C = c(0.1,1,10), .sigma=c(0.01,0.05,0.1))
 svr <- train(ncap_rating~., data=trainsc, method="svmRadial",
             trControl = train_control, tuneGrid = svm_grid)
 
+svr
 svr$finalModel
 
 ```
@@ -135,8 +136,17 @@ svr$finalModel
 
 ### 4. 다중 퍼셉트론
 ```{r mlp}
+library(nnet)
 
+# 모델 학습
+mlp_grid <- expand.grid(.size = c(1,2,3), .decay=c(0,0.001,0.01)) #hyperparameter
 
+mlp <- train(ncap_rating~., data=trainsc, method="nnet",
+            trControl = train_control, tuneGrid = mlp_grid,
+            linout = T, trace = F)
+
+library(NeuralNetTools)
+plotnet(mlp$finalModel)
 
 ```
 
@@ -145,8 +155,23 @@ svr$finalModel
 ### 5. 랜덤포레스트
 
 ```{r rf}
+library(randomForest)
+library(doParallel)
 
+# 클러스터 생성
+cl <- makeCluster(detectCores()-1)
+registerDoParallel(cl)
 
+rf <- train(ncap_rating~., data=trainsc, method="rf",
+            trControl = train_control)
+
+# 클러스터 종료
+stopCluster(cl)
+registerDoSEQ()
+
+rf$finalModel
+
+varImpPlot(rf$finalModel, main="Variable Importance")
 
 ```
 
@@ -155,8 +180,22 @@ svr$finalModel
 ### 6. XGBoost
 
 ```{r xgb}
+library(xgboost)
 
+# 클러스터 생성
+cl <- makeCluster(detectCores()-1)
+registerDoParallel(cl)
 
+xgb <- train(ncap_rating~., data=trainsc, method="xgbTree",
+            trControl = train_control)
+
+stopCluster(cl)
+registerDoSEQ()
+
+xgb$finalModel
+
+xgbimp <- xgb.importance(model = xgb$finalModel)
+xgb.plot.importance(xgbimp)
 
 ```
 
@@ -165,7 +204,23 @@ svr$finalModel
 ### 7. 모델 평가
 
 ```{r eval}
+library(Metrics)
 
+evaluate <- function(model, test){
+  
+  pred <- predict(model$finalModel, newdata=test)
+  
+  result <- c(mae(pred, testsc$ncap_rating),
+              rmse(pred, testsc$ncap_rating),
+              mse(pred, testsc$ncap_rating))
+  names(result) <- c("MAE","RMSE","MSE")
+  print(result)
+}
 
+evaluate(dt, testsc)
+#evaluate(svr,testsc)
+evaluate(mlp, testsc)
+evaluate(rf, testsc)
+#evaluate(xgb,testsc)
 
 ```
