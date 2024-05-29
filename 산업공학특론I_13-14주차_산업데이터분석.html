@@ -410,6 +410,415 @@ for manufacturing process datasets. Journal of Big Data, 7(1), 89.</p>
 <li><p>데이터 전처리 순서 (학습, 테스트셋 분할 전후)를 꼼꼼히 살펴보고
 진행할 것</p></li>
 </ul>
+<pre class="r"><code>dat &lt;- read.csv(&quot;산업공학특론I_13-14주차_데이터.csv&quot;)
+colnames(dat)</code></pre>
+<pre><code>##   [1] &quot;time_stamp&quot;                                        
+##   [2] &quot;AmbientConditions.AmbientHumidity.U.Actual&quot;        
+##   [3] &quot;AmbientConditions.AmbientTemperature.U.Actual&quot;     
+##   [4] &quot;Machine1.RawMaterial.Property1&quot;                    
+##   [5] &quot;Machine1.RawMaterial.Property2&quot;                    
+##   [6] &quot;Machine1.RawMaterial.Property3&quot;                    
+##   [7] &quot;Machine1.RawMaterial.Property4&quot;                    
+##   [8] &quot;Machine1.RawMaterialFeederParameter.U.Actual&quot;      
+##   [9] &quot;Machine1.Zone1Temperature.C.Actual&quot;                
+##  [10] &quot;Machine1.Zone2Temperature.C.Actual&quot;                
+##  [11] &quot;Machine1.MotorAmperage.U.Actual&quot;                   
+##  [12] &quot;Machine1.MotorRPM.C.Actual&quot;                        
+##  [13] &quot;Machine1.MaterialPressure.U.Actual&quot;                
+##  [14] &quot;Machine1.MaterialTemperature.U.Actual&quot;             
+##  [15] &quot;Machine1.ExitZoneTemperature.C.Actual&quot;             
+##  [16] &quot;Machine2.RawMaterial.Property1&quot;                    
+##  [17] &quot;Machine2.RawMaterial.Property2&quot;                    
+##  [18] &quot;Machine2.RawMaterial.Property3&quot;                    
+##  [19] &quot;Machine2.RawMaterial.Property4&quot;                    
+##  [20] &quot;Machine2.RawMaterialFeederParameter.U.Actual&quot;      
+##  [21] &quot;Machine2.Zone1Temperature.C.Actual&quot;                
+##  [22] &quot;Machine2.Zone2Temperature.C.Actual&quot;                
+##  [23] &quot;Machine2.MotorAmperage.U.Actual&quot;                   
+##  [24] &quot;Machine2.MotorRPM.C.Actual&quot;                        
+##  [25] &quot;Machine2.MaterialPressure.U.Actual&quot;                
+##  [26] &quot;Machine2.MaterialTemperature.U.Actual&quot;             
+##  [27] &quot;Machine2.ExitZoneTemperature.C.Actual&quot;             
+##  [28] &quot;Machine3.RawMaterial.Property1&quot;                    
+##  [29] &quot;Machine3.RawMaterial.Property2&quot;                    
+##  [30] &quot;Machine3.RawMaterial.Property3&quot;                    
+##  [31] &quot;Machine3.RawMaterial.Property4&quot;                    
+##  [32] &quot;Machine3.RawMaterialFeederParameter.U.Actual&quot;      
+##  [33] &quot;Machine3.Zone1Temperature.C.Actual&quot;                
+##  [34] &quot;Machine3.Zone2Temperature.C.Actual&quot;                
+##  [35] &quot;Machine3.MotorAmperage.U.Actual&quot;                   
+##  [36] &quot;Machine3.MotorRPM.C.Actual&quot;                        
+##  [37] &quot;Machine3.MaterialPressure.U.Actual&quot;                
+##  [38] &quot;Machine3.MaterialTemperature.U.Actual&quot;             
+##  [39] &quot;Machine3.ExitZoneTemperature.C.Actual&quot;             
+##  [40] &quot;FirstStage.CombinerOperation.Temperature1.U.Actual&quot;
+##  [41] &quot;FirstStage.CombinerOperation.Temperature2.U.Actual&quot;
+##  [42] &quot;FirstStage.CombinerOperation.Temperature3.C.Actual&quot;
+##  [43] &quot;Stage1.Output.Measurement0.U.Actual&quot;               
+##  [44] &quot;Stage1.Output.Measurement0.U.Setpoint&quot;             
+##  [45] &quot;Stage1.Output.Measurement1.U.Actual&quot;               
+##  [46] &quot;Stage1.Output.Measurement1.U.Setpoint&quot;             
+##  [47] &quot;Stage1.Output.Measurement2.U.Actual&quot;               
+##  [48] &quot;Stage1.Output.Measurement2.U.Setpoint&quot;             
+##  [49] &quot;Stage1.Output.Measurement3.U.Actual&quot;               
+##  [50] &quot;Stage1.Output.Measurement3.U.Setpoint&quot;             
+##  [51] &quot;Stage1.Output.Measurement4.U.Actual&quot;               
+##  [52] &quot;Stage1.Output.Measurement4.U.Setpoint&quot;             
+##  [53] &quot;Stage1.Output.Measurement5.U.Actual&quot;               
+##  [54] &quot;Stage1.Output.Measurement5.U.Setpoint&quot;             
+##  [55] &quot;Stage1.Output.Measurement6.U.Actual&quot;               
+##  [56] &quot;Stage1.Output.Measurement6.U.Setpoint&quot;             
+##  [57] &quot;Stage1.Output.Measurement7.U.Actual&quot;               
+##  [58] &quot;Stage1.Output.Measurement7.U.Setpoint&quot;             
+##  [59] &quot;Stage1.Output.Measurement8.U.Actual&quot;               
+##  [60] &quot;Stage1.Output.Measurement8.U.Setpoint&quot;             
+##  [61] &quot;Stage1.Output.Measurement9.U.Actual&quot;               
+##  [62] &quot;Stage1.Output.Measurement9.U.Setpoint&quot;             
+##  [63] &quot;Stage1.Output.Measurement10.U.Actual&quot;              
+##  [64] &quot;Stage1.Output.Measurement10.U.Setpoint&quot;            
+##  [65] &quot;Stage1.Output.Measurement11.U.Actual&quot;              
+##  [66] &quot;Stage1.Output.Measurement11.U.Setpoint&quot;            
+##  [67] &quot;Stage1.Output.Measurement12.U.Actual&quot;              
+##  [68] &quot;Stage1.Output.Measurement12.U.Setpoint&quot;            
+##  [69] &quot;Stage1.Output.Measurement13.U.Actual&quot;              
+##  [70] &quot;Stage1.Output.Measurement13.U.Setpoint&quot;            
+##  [71] &quot;Stage1.Output.Measurement14.U.Actual&quot;              
+##  [72] &quot;Stage1.Output.Measurement14.U.Setpoint&quot;            
+##  [73] &quot;Machine4.Temperature1.C.Actual&quot;                    
+##  [74] &quot;Machine4.Temperature2.C.Actual&quot;                    
+##  [75] &quot;Machine4.Pressure.C.Actual&quot;                        
+##  [76] &quot;Machine4.Temperature3.C.Actual&quot;                    
+##  [77] &quot;Machine4.Temperature4.C.Actual&quot;                    
+##  [78] &quot;Machine4.Temperature5.C.Actual&quot;                    
+##  [79] &quot;Machine4.ExitTemperature.U.Actual&quot;                 
+##  [80] &quot;Machine5.Temperature1.C.Actual&quot;                    
+##  [81] &quot;Machine5.Temperature2.C.Actual&quot;                    
+##  [82] &quot;Machine5.Temperature3.C.Actual&quot;                    
+##  [83] &quot;Machine5.Temperature4.C.Actual&quot;                    
+##  [84] &quot;Machine5.Temperature5.C.Actual&quot;                    
+##  [85] &quot;Machine5.Temperature6.C.Actual&quot;                    
+##  [86] &quot;Machine5.ExitTemperature.U.Actual&quot;                 
+##  [87] &quot;Stage2.Output.Measurement0.U.Actual&quot;               
+##  [88] &quot;Stage2.Output.Measurement0.U.Setpoint&quot;             
+##  [89] &quot;Stage2.Output.Measurement1.U.Actual&quot;               
+##  [90] &quot;Stage2.Output.Measurement1.U.Setpoint&quot;             
+##  [91] &quot;Stage2.Output.Measurement2.U.Actual&quot;               
+##  [92] &quot;Stage2.Output.Measurement2.U.Setpoint&quot;             
+##  [93] &quot;Stage2.Output.Measurement3.U.Actual&quot;               
+##  [94] &quot;Stage2.Output.Measurement3.U.Setpoint&quot;             
+##  [95] &quot;Stage2.Output.Measurement4.U.Actual&quot;               
+##  [96] &quot;Stage2.Output.Measurement4.U.Setpoint&quot;             
+##  [97] &quot;Stage2.Output.Measurement5.U.Actual&quot;               
+##  [98] &quot;Stage2.Output.Measurement5.U.Setpoint&quot;             
+##  [99] &quot;Stage2.Output.Measurement6.U.Actual&quot;               
+## [100] &quot;Stage2.Output.Measurement6.U.Setpoint&quot;             
+## [101] &quot;Stage2.Output.Measurement7.U.Actual&quot;               
+## [102] &quot;Stage2.Output.Measurement7.U.Setpoint&quot;             
+## [103] &quot;Stage2.Output.Measurement8.U.Actual&quot;               
+## [104] &quot;Stage2.Output.Measurement8.U.Setpoint&quot;             
+## [105] &quot;Stage2.Output.Measurement9.U.Actual&quot;               
+## [106] &quot;Stage2.Output.Measurement9.U.Setpoint&quot;             
+## [107] &quot;Stage2.Output.Measurement10.U.Actual&quot;              
+## [108] &quot;Stage2.Output.Measurement10.U.Setpoint&quot;            
+## [109] &quot;Stage2.Output.Measurement11.U.Actual&quot;              
+## [110] &quot;Stage2.Output.Measurement11.U.Setpoint&quot;            
+## [111] &quot;Stage2.Output.Measurement12.U.Actual&quot;              
+## [112] &quot;Stage2.Output.Measurement12.U.Setpoint&quot;            
+## [113] &quot;Stage2.Output.Measurement13.U.Actual&quot;              
+## [114] &quot;Stage2.Output.Measurement13.U.Setpoint&quot;            
+## [115] &quot;Stage2.Output.Measurement14.U.Actual&quot;              
+## [116] &quot;Stage2.Output.Measurement14.U.Setpoint&quot;</code></pre>
+<pre class="r"><code># Stage1 평균
+
+for(i in 1:nrow(dat)){
+  dat$Stage1.Output.Mean[i] = rowMeans(dat[i,seq(43,71,by=2)])
+}
+
+# Stage2 평균
+
+for(i in 1:nrow(dat)){
+  dat$Stage2.Output.Mean[i] = rowMeans(dat[i,seq(87,115,by=2)])
+}
+
+# 불필요한 변수 제거
+
+dat &lt;- dat[, !grepl(&quot;Output.Measurement&quot;, names(dat))]
+dat &lt;- dat[,-(1:3)]
+colnames(dat)</code></pre>
+<pre><code>##  [1] &quot;Machine1.RawMaterial.Property1&quot;                    
+##  [2] &quot;Machine1.RawMaterial.Property2&quot;                    
+##  [3] &quot;Machine1.RawMaterial.Property3&quot;                    
+##  [4] &quot;Machine1.RawMaterial.Property4&quot;                    
+##  [5] &quot;Machine1.RawMaterialFeederParameter.U.Actual&quot;      
+##  [6] &quot;Machine1.Zone1Temperature.C.Actual&quot;                
+##  [7] &quot;Machine1.Zone2Temperature.C.Actual&quot;                
+##  [8] &quot;Machine1.MotorAmperage.U.Actual&quot;                   
+##  [9] &quot;Machine1.MotorRPM.C.Actual&quot;                        
+## [10] &quot;Machine1.MaterialPressure.U.Actual&quot;                
+## [11] &quot;Machine1.MaterialTemperature.U.Actual&quot;             
+## [12] &quot;Machine1.ExitZoneTemperature.C.Actual&quot;             
+## [13] &quot;Machine2.RawMaterial.Property1&quot;                    
+## [14] &quot;Machine2.RawMaterial.Property2&quot;                    
+## [15] &quot;Machine2.RawMaterial.Property3&quot;                    
+## [16] &quot;Machine2.RawMaterial.Property4&quot;                    
+## [17] &quot;Machine2.RawMaterialFeederParameter.U.Actual&quot;      
+## [18] &quot;Machine2.Zone1Temperature.C.Actual&quot;                
+## [19] &quot;Machine2.Zone2Temperature.C.Actual&quot;                
+## [20] &quot;Machine2.MotorAmperage.U.Actual&quot;                   
+## [21] &quot;Machine2.MotorRPM.C.Actual&quot;                        
+## [22] &quot;Machine2.MaterialPressure.U.Actual&quot;                
+## [23] &quot;Machine2.MaterialTemperature.U.Actual&quot;             
+## [24] &quot;Machine2.ExitZoneTemperature.C.Actual&quot;             
+## [25] &quot;Machine3.RawMaterial.Property1&quot;                    
+## [26] &quot;Machine3.RawMaterial.Property2&quot;                    
+## [27] &quot;Machine3.RawMaterial.Property3&quot;                    
+## [28] &quot;Machine3.RawMaterial.Property4&quot;                    
+## [29] &quot;Machine3.RawMaterialFeederParameter.U.Actual&quot;      
+## [30] &quot;Machine3.Zone1Temperature.C.Actual&quot;                
+## [31] &quot;Machine3.Zone2Temperature.C.Actual&quot;                
+## [32] &quot;Machine3.MotorAmperage.U.Actual&quot;                   
+## [33] &quot;Machine3.MotorRPM.C.Actual&quot;                        
+## [34] &quot;Machine3.MaterialPressure.U.Actual&quot;                
+## [35] &quot;Machine3.MaterialTemperature.U.Actual&quot;             
+## [36] &quot;Machine3.ExitZoneTemperature.C.Actual&quot;             
+## [37] &quot;FirstStage.CombinerOperation.Temperature1.U.Actual&quot;
+## [38] &quot;FirstStage.CombinerOperation.Temperature2.U.Actual&quot;
+## [39] &quot;FirstStage.CombinerOperation.Temperature3.C.Actual&quot;
+## [40] &quot;Machine4.Temperature1.C.Actual&quot;                    
+## [41] &quot;Machine4.Temperature2.C.Actual&quot;                    
+## [42] &quot;Machine4.Pressure.C.Actual&quot;                        
+## [43] &quot;Machine4.Temperature3.C.Actual&quot;                    
+## [44] &quot;Machine4.Temperature4.C.Actual&quot;                    
+## [45] &quot;Machine4.Temperature5.C.Actual&quot;                    
+## [46] &quot;Machine4.ExitTemperature.U.Actual&quot;                 
+## [47] &quot;Machine5.Temperature1.C.Actual&quot;                    
+## [48] &quot;Machine5.Temperature2.C.Actual&quot;                    
+## [49] &quot;Machine5.Temperature3.C.Actual&quot;                    
+## [50] &quot;Machine5.Temperature4.C.Actual&quot;                    
+## [51] &quot;Machine5.Temperature5.C.Actual&quot;                    
+## [52] &quot;Machine5.Temperature6.C.Actual&quot;                    
+## [53] &quot;Machine5.ExitTemperature.U.Actual&quot;                 
+## [54] &quot;Stage1.Output.Mean&quot;                                
+## [55] &quot;Stage2.Output.Mean&quot;</code></pre>
+<pre class="r"><code># 스케일링
+dat &lt;- scale(dat)
+
+summary(dat)</code></pre>
+<pre><code>##  Machine1.RawMaterial.Property1 Machine1.RawMaterial.Property2
+##  Min.   :-0.6099                Min.   :-0.4891               
+##  1st Qu.:-0.6099                1st Qu.:-0.4891               
+##  Median :-0.6099                Median :-0.4891               
+##  Mean   : 0.0000                Mean   : 0.0000               
+##  3rd Qu.: 0.7226                3rd Qu.:-0.4029               
+##  Max.   : 2.0551                Max.   : 2.6127               
+##  Machine1.RawMaterial.Property3 Machine1.RawMaterial.Property4
+##  Min.   :-2.76776               Min.   :-0.5667               
+##  1st Qu.: 0.08937               1st Qu.:-0.5667               
+##  Median : 0.08937               Median :-0.5667               
+##  Mean   : 0.00000               Mean   : 0.0000               
+##  3rd Qu.: 0.59805               3rd Qu.: 0.6462               
+##  Max.   : 0.76092               Max.   : 2.4656               
+##  Machine1.RawMaterialFeederParameter.U.Actual
+##  Min.   :-10.5530                            
+##  1st Qu.:  0.1503                            
+##  Median :  0.2262                            
+##  Mean   :  0.0000                            
+##  3rd Qu.:  0.3203                            
+##  Max.   :  0.9292                            
+##  Machine1.Zone1Temperature.C.Actual Machine1.Zone2Temperature.C.Actual
+##  Min.   :-1.794                     Min.   :-1.75507                  
+##  1st Qu.:-0.211                     1st Qu.:-1.01672                  
+##  Median :-0.211                     Median :-0.03226                  
+##  Mean   : 0.000                     Mean   : 0.00000                  
+##  3rd Qu.:-0.211                     3rd Qu.: 0.95221                  
+##  Max.   : 7.703                     Max.   : 1.69056                  
+##  Machine1.MotorAmperage.U.Actual Machine1.MotorRPM.C.Actual
+##  Min.   :-4.6936                 Min.   :-1.0739           
+##  1st Qu.:-0.2630                 1st Qu.:-0.8692           
+##  Median : 0.2981                 Median :-0.5386           
+##  Mean   : 0.0000                 Mean   : 0.0000           
+##  3rd Qu.: 0.4682                 3rd Qu.: 1.0988           
+##  Max.   : 3.2934                 Max.   : 1.8387           
+##  Machine1.MaterialPressure.U.Actual Machine1.MaterialTemperature.U.Actual
+##  Min.   :-2.41898                   Min.   :-5.5558                      
+##  1st Qu.:-0.00277                   1st Qu.:-0.5051                      
+##  Median : 0.38837                   Median :-0.1827                      
+##  Mean   : 0.00000                   Mean   : 0.0000                      
+##  3rd Qu.: 0.60861                   3rd Qu.: 0.3546                      
+##  Max.   : 3.82077                   Max.   : 2.6113                      
+##  Machine1.ExitZoneTemperature.C.Actual Machine2.RawMaterial.Property1
+##  Min.   :-3.0433                       Min.   :-1.8956               
+##  1st Qu.:-0.4692                       1st Qu.: 0.5275               
+##  Median :-0.4692                       Median : 0.5275               
+##  Mean   : 0.0000                       Mean   : 0.0000               
+##  3rd Qu.:-0.4207                       3rd Qu.: 0.5275               
+##  Max.   : 1.9591                       Max.   : 0.5275               
+##  Machine2.RawMaterial.Property2 Machine2.RawMaterial.Property3
+##  Min.   :-1.8956                Min.   :-0.5275               
+##  1st Qu.: 0.5275                1st Qu.:-0.5275               
+##  Median : 0.5275                Median :-0.5275               
+##  Mean   : 0.0000                Mean   : 0.0000               
+##  3rd Qu.: 0.5275                3rd Qu.:-0.5275               
+##  Max.   : 0.5275                Max.   : 1.8956               
+##  Machine2.RawMaterial.Property4 Machine2.RawMaterialFeederParameter.U.Actual
+##  Min.   :-0.5275                Min.   :-13.40657                           
+##  1st Qu.:-0.5275                1st Qu.: -0.55756                           
+##  Median :-0.5275                Median :  0.04928                           
+##  Mean   : 0.0000                Mean   :  0.00000                           
+##  3rd Qu.:-0.5275                3rd Qu.:  0.60798                           
+##  Max.   : 1.8956                Max.   :  4.22838                           
+##  Machine2.Zone1Temperature.C.Actual Machine2.Zone2Temperature.C.Actual
+##  Min.   :-5.7331                    Min.   :-12.1073                  
+##  1st Qu.:-0.2965                    1st Qu.: -0.2849                  
+##  Median :-0.1211                    Median : -0.1016                  
+##  Mean   : 0.0000                    Mean   :  0.0000                  
+##  3rd Qu.: 0.0543                    3rd Qu.: -0.1016                  
+##  Max.   :11.6291                    Max.   :  7.6966                  
+##  Machine2.MotorAmperage.U.Actual Machine2.MotorRPM.C.Actual
+##  Min.   :-4.6427                 Min.   :-2.6332           
+##  1st Qu.:-0.5271                 1st Qu.:-0.9189           
+##  Median : 0.1041                 Median : 0.1096           
+##  Mean   : 0.0000                 Mean   : 0.0000           
+##  3rd Qu.: 0.7354                 3rd Qu.: 0.7953           
+##  Max.   : 2.4776                 Max.   : 2.5096           
+##  Machine2.MaterialPressure.U.Actual Machine2.MaterialTemperature.U.Actual
+##  Min.   :-2.334614                  Min.   :-9.3711                      
+##  1st Qu.:-0.721812                  1st Qu.: 0.1026                      
+##  Median :-0.007158                  Median : 0.2196                      
+##  Mean   : 0.000000                  Mean   : 0.0000                      
+##  3rd Qu.: 0.581950                  3rd Qu.: 0.3365                      
+##  Max.   : 7.873360                  Max.   : 0.6874                      
+##  Machine2.ExitZoneTemperature.C.Actual Machine3.RawMaterial.Property1
+##  Min.   :-2.484244                     Min.   :-0.6568               
+##  1st Qu.:-0.625231                     1st Qu.:-0.6568               
+##  Median :-0.008213                     Median :-0.6568               
+##  Mean   : 0.000000                     Mean   : 0.0000               
+##  3rd Qu.: 0.608805                     3rd Qu.:-0.1777               
+##  Max.   : 3.076876                     Max.   : 1.9403               
+##  Machine3.RawMaterial.Property2 Machine3.RawMaterial.Property3
+##  Min.   :-1.2039                Min.   :-1.6783               
+##  1st Qu.:-1.2039                1st Qu.:-0.4032               
+##  Median : 0.9407                Median : 0.8541               
+##  Mean   : 0.0000                Mean   : 0.0000               
+##  3rd Qu.: 0.9407                3rd Qu.: 0.8541               
+##  Max.   : 0.9407                Max.   : 0.8541               
+##  Machine3.RawMaterial.Property4 Machine3.RawMaterialFeederParameter.U.Actual
+##  Min.   :-1.3954                Min.   :-12.92859                           
+##  1st Qu.:-1.3954                1st Qu.: -0.53659                           
+##  Median : 0.9006                Median :  0.03389                           
+##  Mean   : 0.0000                Mean   :  0.00000                           
+##  3rd Qu.: 0.9006                3rd Qu.:  0.60117                           
+##  Max.   : 0.9006                Max.   :  3.62155                           
+##  Machine3.Zone1Temperature.C.Actual Machine3.Zone2Temperature.C.Actual
+##  Min.   :-9.5005                    Min.   :-2.65593                  
+##  1st Qu.:-0.1074                    1st Qu.:-0.91409                  
+##  Median :-0.1074                    Median :-0.04318                  
+##  Mean   : 0.0000                    Mean   : 0.00000                  
+##  3rd Qu.:-0.1074                    3rd Qu.: 0.82774                  
+##  Max.   : 9.0041                    Max.   : 5.18232                  
+##  Machine3.MotorAmperage.U.Actual Machine3.MotorRPM.C.Actual
+##  Min.   :-2.6286                 Min.   :-3.0135           
+##  1st Qu.:-0.6821                 1st Qu.:-0.6895           
+##  Median :-0.2469                 Median : 0.1849           
+##  Mean   : 0.0000                 Mean   : 0.0000           
+##  3rd Qu.: 0.3438                 3rd Qu.: 0.8291           
+##  Max.   : 3.2176                 Max.   : 1.6805           
+##  Machine3.MaterialPressure.U.Actual Machine3.MaterialTemperature.U.Actual
+##  Min.   :-1.9095                    Min.   :-4.2949                      
+##  1st Qu.:-0.6436                    1st Qu.:-0.2625                      
+##  Median : 0.1225                    Median : 0.4663                      
+##  Mean   : 0.0000                    Mean   : 0.0000                      
+##  3rd Qu.: 0.3593                    3rd Qu.: 0.5634                      
+##  Max.   : 2.7702                    Max.   : 0.6606                      
+##  Machine3.ExitZoneTemperature.C.Actual
+##  Min.   :-3.3349                      
+##  1st Qu.:-0.1318                      
+##  Median :-0.1318                      
+##  Mean   : 0.0000                      
+##  3rd Qu.:-0.1318                      
+##  Max.   : 3.0712                      
+##  FirstStage.CombinerOperation.Temperature1.U.Actual
+##  Min.   :-11.2204                                  
+##  1st Qu.: -0.8321                                  
+##  Median : -0.6028                                  
+##  Mean   :  0.0000                                  
+##  3rd Qu.:  1.1080                                  
+##  Max.   :  1.7605                                  
+##  FirstStage.CombinerOperation.Temperature2.U.Actual
+##  Min.   :-1.7007                                   
+##  1st Qu.:-0.8557                                   
+##  Median :-0.5435                                   
+##  Mean   : 0.0000                                   
+##  3rd Qu.: 1.0389                                   
+##  Max.   : 1.6309                                   
+##  FirstStage.CombinerOperation.Temperature3.C.Actual
+##  Min.   :-3.41187                                  
+##  1st Qu.:-0.03139                                  
+##  Median :-0.03139                                  
+##  Mean   : 0.00000                                  
+##  3rd Qu.: 0.81373                                  
+##  Max.   : 2.68684                                  
+##  Machine4.Temperature1.C.Actual Machine4.Temperature2.C.Actual
+##  Min.   :-27.15471              Min.   :-25.74519             
+##  1st Qu.: -0.05422              1st Qu.: -0.38370             
+##  Median : -0.05422              Median : -0.04555             
+##  Mean   :  0.00000              Mean   :  0.00000             
+##  3rd Qu.: -0.05422              3rd Qu.:  0.29260             
+##  Max.   : 14.37024              Max.   : 12.12796             
+##  Machine4.Pressure.C.Actual Machine4.Temperature3.C.Actual
+##  Min.   :-3.4281            Min.   :-14.7073              
+##  1st Qu.:-0.2404            1st Qu.: -0.4341              
+##  Median :-0.2404            Median :  0.3738              
+##  Mean   : 0.0000            Mean   :  0.0000              
+##  3rd Qu.: 0.8221            3rd Qu.:  0.6431              
+##  Max.   : 8.2601            Max.   :  1.1817              
+##  Machine4.Temperature4.C.Actual Machine4.Temperature5.C.Actual
+##  Min.   :-3.4281                Min.   :-17.4068              
+##  1st Qu.:-0.2404                1st Qu.: -0.2734              
+##  Median :-0.2404                Median :  0.4259              
+##  Mean   : 0.0000                Mean   :  0.0000              
+##  3rd Qu.: 0.8221                3rd Qu.:  0.4259              
+##  Max.   : 8.2601                Max.   :  5.6708              
+##  Machine4.ExitTemperature.U.Actual Machine5.Temperature1.C.Actual
+##  Min.   :-6.4321                   Min.   :-15.26859             
+##  1st Qu.: 0.1632                   1st Qu.:  0.04779             
+##  Median : 0.2055                   Median :  0.04779             
+##  Mean   : 0.0000                   Mean   :  0.00000             
+##  3rd Qu.: 0.2478                   3rd Qu.:  0.04779             
+##  Max.   : 1.2202                   Max.   :  7.70598             
+##  Machine5.Temperature2.C.Actual Machine5.Temperature3.C.Actual
+##  Min.   :-5.74693               Min.   :-5.7031               
+##  1st Qu.: 0.03482               1st Qu.: 0.3109               
+##  Median : 0.03482               Median : 0.3109               
+##  Mean   : 0.00000               Mean   : 0.0000               
+##  3rd Qu.: 0.03482               3rd Qu.: 0.3109               
+##  Max.   : 5.81657               Max.   : 0.3109               
+##  Machine5.Temperature4.C.Actual Machine5.Temperature5.C.Actual
+##  Min.   :-3.18065               Min.   :-19.84445             
+##  1st Qu.:-0.47799               1st Qu.:  0.04713             
+##  Median : 0.02483               Median :  0.04713             
+##  Mean   : 0.00000               Mean   :  0.00000             
+##  3rd Qu.: 0.59050               3rd Qu.:  0.04713             
+##  Max.   : 1.47044               Max.   :  6.67766             
+##  Machine5.Temperature6.C.Actual Machine5.ExitTemperature.U.Actual
+##  Min.   :-1.54424               Min.   :-10.53355                
+##  1st Qu.:-0.54980               1st Qu.:  0.02133                
+##  Median :-0.05259               Median :  0.15715                
+##  Mean   : 0.00000               Mean   :  0.00000                
+##  3rd Qu.: 0.44463               3rd Qu.:  0.25416                
+##  Max.   : 6.65987               Max.   :  0.50639                
+##  Stage1.Output.Mean Stage2.Output.Mean
+##  Min.   :-7.45540   Min.   :-4.9722   
+##  1st Qu.:-0.23654   1st Qu.:-0.3927   
+##  Median : 0.09053   Median : 0.3389   
+##  Mean   : 0.00000   Mean   : 0.0000   
+##  3rd Qu.: 0.77001   3rd Qu.: 0.3663   
+##  Max.   : 1.19948   Max.   : 2.0853</code></pre>
+<pre class="r"><code># 학습, 테스트셋 7:3 분할
+set.seed(0)
+trainidx &lt;- sample(1:nrow(dat), 0.7*nrow(dat))
+train &lt;- dat[trainidx,]
+test &lt;- dat[-trainidx,]</code></pre>
 <p><br></p>
 </div>
 <div id="특징-추출-및-차원-축소" class="section level3">
